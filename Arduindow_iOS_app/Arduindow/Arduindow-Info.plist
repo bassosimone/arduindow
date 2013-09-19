@@ -14,8 +14,9 @@
 		<dict>
 			<key>CFBundleIconFiles</key>
 			<array>
-				<string>ICONA_ARDUINDOW_57.png</string>
-				<string>ICONA_ARDUINDOW_114.png</string>
+				<string>ARD_ICON_114</string>
+				<string>ARD_ICON_120</string>
+				<string>ARD_ICON_57</string>
 			</array>
 		</dict>
 	</dict>
@@ -46,6 +47,7 @@
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
 </dict>
 </plist>

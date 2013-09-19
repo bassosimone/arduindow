@@ -23,6 +23,7 @@
 	UILabel 	*lbTimeServer;
 	UITextField *tfInform;
 	UITextField	*tfServer;
+	UISlider	*slWindow;
 
 	float animatedDistance;				// used for scrolling the view when start text field editing
 
