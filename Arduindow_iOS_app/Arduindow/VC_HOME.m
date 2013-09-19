@@ -16,6 +16,18 @@
 #import "AFHTTPRequestOperation.h"
 
 
+//-------------------------------------------------------//
+//---	Commands used by httpGetServer 			---------//
+//-------------------------------------------------------//
+#define 	C_ENQUIRY			1
+#define 	C_CLOSE				2
+#define 	C_OPEN				4
+
+//------------------------------------------------------//
+//---	Max and min value for slider ....			----//
+//------------------------------------------------------//
+#define 	MAX_VALUE			99.0f
+#define 	MIN_VALUE			0.0f
 
 
 static const CGFloat KEYBOARD_ANIMATION_DURATION = 0.3;
@@ -48,7 +60,7 @@ struct AR_DATA adata;
 	[self drawView];				// alloc, init and presents all view's subviews...
 	[self setDataOnScreen];			// read from my struct last data and present them...
 
-	[self httpGetToServer];			// the first time it's called this, after it's called by the timer...
+	[self httpGetToServer:C_ENQUIRY];			// the first time it's called this, after it's called by the timer...
 
 	
 	self.refreshTimer=[NSTimer timerWithTimeInterval:TIME_REFRESH target:self selector:@selector(refreshButton) userInfo:nil repeats:YES];		// init the timer.
@@ -91,7 +103,7 @@ struct AR_DATA adata;
 //== Start a http GET request and receive response (success or failure) 				  ===//
 //== using blocks. For further documentation: https://github.com/AFNetworking/AFNetworking ==//
 //===========================================================================================//
-- (int) httpGetToServer {
+- (int) httpGetToServer :(int) command {
 int err=0;
 
 	//-------------------------------------------------------------------//
@@ -106,7 +118,13 @@ int err=0;
 	NSURL *url=[NSURL URLWithString:serverAddr];
 	AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[url URLByDeletingLastPathComponent]];		// delete index.php...
 	httpClient.parameterEncoding = AFFormURLParameterEncoding;
-	NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:@"?", @"v", nil];							// value of GET request..
+
+	NSString *getKey=@"";									// different get request...
+	if(command==C_ENQUIRY)		getKey=@"v";				// obtain JSON file with infos.
+	if(command==C_CLOSE)		getKey=@"e&close";			// close window.
+	if(command==C_OPEN)			getKey=@"e&open";			// open window.
+
+	NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:@"?", getKey, nil];							// value of GET request..
 	NSMutableURLRequest *request = [httpClient requestWithMethod:@"GET" path:serverAddr parameters:params];		// set up request
 
 	AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
@@ -117,10 +135,12 @@ int err=0;
 	//-------------------------------------------------------------------//
 	[operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
 
+		if(command==C_CLOSE|| command==C_OPEN)		return;		// in case of command to the window, server doesn't answer...
+
 		NSData *data=(NSData *) responseObject;
 		NSString *str2=[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];			// use UTF8 or ASCII to convert data in string...
 
-		//NSLog(@"str2=%@", str2);
+		NSLog(@"str2=%@", str2);
 
 		if(![str2 length])	return;						// if the string is empty...
 
@@ -137,6 +157,8 @@ int err=0;
 		for(i=0;i<[str2 length]; i++) {
 			if([str2 characterAtIndex:i]=='}')  break;
 		}
+
+		if(i==[str2 length]-1) 	i--;			// if it's the last element or not found, just have a NSMakeRange legal...
 
 		//-------- extracts from str2 (JSON file) a NSDictionary...	-------//
 		NSMutableDictionary *dicJSON=[NSJSONSerialization JSONObjectWithData:[[str2 substringWithRange:NSMakeRange(0, i+1)] dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
@@ -171,9 +193,25 @@ int err=0;
 //===========================================================//
 -(void) refreshButton {
 
-	[self httpGetToServer];
+	[self httpGetToServer:C_ENQUIRY];
+}
+
+//===========================================================//
+//== Slider window value did changed						=//
+//===========================================================//
+-(void) sliderValueChanged {
+
+	if(slWindow.value<50.0f) {				// if new slider value is less tha 50 %
+		[self httpGetToServer:C_CLOSE];		// just close it...
+	} else {
+		[self httpGetToServer:C_OPEN];		// if >50% -> open...
+	}
+
+
+	[self performSelector:@selector(refreshButton) withObject:Nil afterDelay:3.0f];		// after a delay of 3 seconds, force a get enquiry..
 
 }
+
 
 
 #pragma mark -
@@ -346,7 +384,7 @@ int ris;
 	NSString *str=[NSString stringWithString:tfServer.text];
 	str=[str stringByReplacingOccurrencesOfString:@"\n" withString:@""];			// user may tap "\n" for stop editing, we have to delete this character.
 	strcpy(adata.serverAddress, [str cStringUsingEncoding:NSUTF8StringEncoding]);	// save new server address..
-	[self httpGetToServer];															// send a GET request to server
+	[self httpGetToServer:C_ENQUIRY];												// send a GET request to server
 
 }
 
@@ -369,7 +407,7 @@ float barHeight;
 
 	//----------------- black bar at the top of the view...			--------------//
 	UIImageView *bar=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, WIDTH_SCREEN, barHeight)];
-	[bar setImage:[UIImage imageNamed:@"BAR.png"]];
+	[bar setImage:[UIImage imageNamed:@"BLUE_BAR.png"]];
 	[self.view addSubview:bar];
 
 	//---------------- just allocate the UILabel objects (we cannot put in a NSArray nil object)... -----------//
@@ -423,10 +461,22 @@ float barHeight;
 		[lbValue setFont:[UIFont boldSystemFontOfSize:17.5f]];
 		[lbValue setBackgroundColor:[UIColor clearColor]];
 		[scroll addSubview:lbValue];
-		
+
+
 		coordY+=sideImg;
 
 	}
+
+	//--------------- SLIDER for window state ------------------//
+	slWindow=[[UISlider alloc] initWithFrame:CGRectMake(coordX+sideImg, coordY-35, WIDTH_SCREEN-2*spaziat-coordX-sideImg, 35)];
+	[slWindow setBackgroundColor:[UIColor clearColor]];
+	[slWindow setMinimumTrackTintColor:[UIColor blueColor]];
+	[slWindow addTarget:self action:@selector(sliderValueChanged) forControlEvents:UIControlEventValueChanged];
+	[slWindow setMaximumValue:MAX_VALUE];
+	[slWindow setMinimumValue:MIN_VALUE];
+
+	[scroll addSubview:slWindow];
+
 
 	coordY+=spaziat;
 
@@ -436,7 +486,9 @@ float barHeight;
 	[bt3 setTitle:@"AGGIORNA" forState:UIControlStateNormal];
 	[bt3 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 	[bt3.titleLabel setFont:[UIFont boldSystemFontOfSize:25]];
-	[bt3 setBackgroundImage:[UIImage imageNamed:@"RED_BUTTON.png"] forState:UIControlStateNormal];
+	[bt3 setBackgroundImage:[UIImage imageNamed:@"BLUE_BUTTON.png"] forState:UIControlStateNormal];
+	//[bt3 setBackgroundColor:[UIColor redColor]];
+	[bt3.layer setCornerRadius:8.0f];
 	[scroll addSubview:bt3];
 
 	//----------- Label with last time refresh with our server ..							-----------//
@@ -481,12 +533,14 @@ float barHeight;
 	[lbStation setText:[NSString stringWithCString:adata.meteoStation encoding:NSUTF8StringEncoding]];
 	[lbTimeArpa setText:[NSString stringWithCString:adata.arpaTimeUpdate encoding:NSUTF8StringEncoding]];
 	
-	[lbTemp setText:[NSString stringWithFormat:@"%.2f %cC", adata.celsiusTemperature, 188]];		// 188-> ∘
+	[lbTemp setText:[NSString stringWithFormat:@"%.2f ℃", adata.celsiusTemperature]];
 	[lbPrecipToday setText:[NSString stringWithFormat:@"%.1f mm", adata.precipitDay]];
 
 	if(adata.windowStatus) {
 		[lbWindow setText:@"APERTA"];
+		slWindow.value=MAX_VALUE;
 	} else {
+		slWindow.value=MIN_VALUE;
 		[lbWindow setText:@"CHIUSA"];
 	}
 
