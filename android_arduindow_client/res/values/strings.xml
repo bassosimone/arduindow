@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Arduindow</string>
+    <string name="meteo_station">Meteo Station</string>
+    <string name="last_update">Last Update</string>
+    <string name="temperature">Temperature</string>
+    <string name="rainfalls">Rainfalls</string>
+    <string name="refresh">Refresh</string>
+    <string name="server">Server</string>
+    <string name="status">Status</string>
+
+</resources>

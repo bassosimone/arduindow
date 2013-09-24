@@ -36,7 +36,7 @@ function getJson () {
 	$url = "http://webgis.arpa.piemonte.it/free/rest/services/climatologia-meteorologia-atmosfera/Pluviometri_tempo_reale_RADAR/MapServer/0/query?where=1%3D1&outFields=".join($fields,"%2C")."&f=json";
 	$data = file_get_contents ($url);
 
-	global $p;
+	global $p, $months;
 	// Some parsing...
 	while (preg_match ("|\"attributes\":\{(.+?)\}|",$data,$preg)) {
 		$l = explode(",",$preg[1]);
@@ -73,13 +73,14 @@ $delta = (date("j",$p[$meteoStation]['TIMESTAMP'])!=date("j",$lastUpdate))?$p[$m
 if (isset($_GET['v'])) {
 	header ("Content-Type: application/json");
 	echo "{\n";
-	echo "\t\"date_fancy\": {$p[$meteoStation]['P_DATA_AGG']},\n";
-	echo "\t\"timestamp\": {$p[$meteoStation]['TIMESTAMP']},\n";
-	echo "\t\"delay\": {$p[$meteoStation]['DELAY']},\n";
-	echo "\t\"temperature_celsius\": {$p[$meteoStation]['T_ULTIMO_DATO']},\n";
-	echo "\t\"precip_day\": {$p[$meteoStation]['P_TOT_OGGI']},\n";
-	echo "\t\"precip_delta\": {$delta},\n";
-	echo "\t\"window_status\": {$windowStatus}\n";
+	echo "\t\"meteo_station\": \"{$meteoStation}\",\n";
+	echo "\t\"date_fancy\": \"{$p[$meteoStation]['P_DATA_AGG']}\",\n";
+	echo "\t\"timestamp\": \"{$p[$meteoStation]['TIMESTAMP']}\",\n";
+	echo "\t\"delay\": \"{$p[$meteoStation]['DELAY']}\",\n";
+	echo "\t\"temperature_celsius\": \"{$p[$meteoStation]['T_ULTIMO_DATO']}\",\n";
+	echo "\t\"precip_day\": \"{$p[$meteoStation]['P_TOT_OGGI']}\",\n";
+	echo "\t\"precip_delta\": \"{$delta}\",\n";
+	echo "\t\"window_status\": \"{$windowStatus}\"\n";
 	echo "}\n";
 
 }
