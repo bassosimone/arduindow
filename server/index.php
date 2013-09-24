@@ -1,5 +1,20 @@
 <?php
 
+/*-
+ * Arduindow - Opens and closes the windows in your house
+ * using an Arduino and open weather data.
+ *
+ * Team:
+ *     Erica Raviola (iOS)
+ *     Flavio Giobergia (APIs)
+ *     Roberto Gambotto (Arduino)
+ *     Simone Basso (sandwiches)
+ *
+ * Homepage: <https://github.com/bassosimone/arduindow>.
+ *
+ * See LICENSE for license conditions.
+ */
+
 error_reporting (E_ALL ^ E_NOTICE);
 set_time_limit (0);
 
