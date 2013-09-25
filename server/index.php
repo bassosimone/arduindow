@@ -89,13 +89,13 @@ if (isset($_GET['v'])) {
 	header ("Content-Type: application/json");
 	echo "{\n";
 	echo "\t\"meteo_station\": \"{$meteoStation}\",\n";
-	echo "\t\"date_fancy\": {$p[$meteoStation]['P_DATA_AGG']},\n";
-	echo "\t\"timestamp\": {$p[$meteoStation]['TIMESTAMP']},\n";
-	echo "\t\"delay\": {$p[$meteoStation]['DELAY']},\n";
-	echo "\t\"temperature_celsius\": {$p[$meteoStation]['T_ULTIMO_DATO']},\n";
-	echo "\t\"precip_day\": {$p[$meteoStation]['P_TOT_OGGI']},\n";
-	echo "\t\"precip_delta\": {$delta},\n";
-	echo "\t\"window_status\": {$windowStatus}\n";
+	echo "\t\"date_fancy\": \"{$p[$meteoStation]['P_DATA_AGG']}\",\n";
+	echo "\t\"timestamp\": \"{$p[$meteoStation]['TIMESTAMP']}\",\n";
+	echo "\t\"delay\": \"{$p[$meteoStation]['DELAY']}\",\n";
+	echo "\t\"temperature_celsius\": \"{$p[$meteoStation]['T_ULTIMO_DATO']}\",\n";
+	echo "\t\"precip_day\": \"{$p[$meteoStation]['P_TOT_OGGI']}\",\n";
+	echo "\t\"precip_delta\": \"{$delta}\",\n";
+	echo "\t\"window_status\": \"{$windowStatus}\"\n";
 	echo "}\n";
 
 }
