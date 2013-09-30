@@ -1,19 +1,187 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".MainActivity" >
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
 
-    <ListView
-        android:id="@+id/listView1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" >
-    </ListView>
+	<RelativeLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:paddingBottom="@dimen/activity_vertical_margin"
+	    android:paddingLeft="@dimen/activity_horizontal_margin"
+	    android:paddingRight="@dimen/activity_horizontal_margin"
+	    android:paddingTop="@dimen/activity_vertical_margin" >
+	
+	    <ImageView
+	        android:id="@+id/imageView1"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_alignParentTop="true"
+	        android:src="@drawable/ic_home" />
+	
+	    <ImageView
+	        android:id="@+id/imageView2"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignLeft="@+id/imageView1"
+	        android:layout_alignTop="@+id/textView3"
+	        android:src="@drawable/ic_hour" />
+	
+	    <TextView
+	        android:id="@+id/textView2"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignBottom="@+id/imageView3"
+	        android:layout_alignLeft="@+id/textView3"
+	        android:text="@string/temp"
+	        android:textAppearance="?android:attr/textAppearanceMedium" />
+	
+	    <ImageView
+	        android:id="@+id/imageView4"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignLeft="@+id/imageView3"
+	        android:layout_below="@+id/imageView3"
+	        android:layout_marginTop="22dp"
+	        android:src="@drawable/ic_prec" />
+	
+	    <TextView
+	        android:id="@+id/textView4"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignLeft="@+id/textView2"
+	        android:layout_alignTop="@+id/imageView4"
+	        android:text="@string/prec"
+	        android:textAppearance="?android:attr/textAppearanceMedium" />
+	
+	    <ImageView
+	        android:id="@+id/imageView5"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignLeft="@+id/imageView4"
+	        android:layout_below="@+id/imageView4"
+	        android:layout_marginTop="23dp"
+	        android:src="@drawable/ic_finestra" />
+	
+	    <TextView
+	        android:id="@+id/textView5"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignLeft="@+id/textView4"
+	        android:layout_alignTop="@+id/imageView5"
+	        android:text="@string/finestra"
+	        android:textAppearance="?android:attr/textAppearanceMedium" />
+	
+	    <TextView
+	        android:id="@+id/textFin"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignBottom="@+id/textView5"
+	        android:layout_alignParentRight="true"
+	        android:text="@string/finestraStatus"
+	        android:textAppearance="?android:attr/textAppearanceMedium" />
+	
+	    <TextView
+	        android:id="@+id/textView6"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignLeft="@+id/buttonAggiorna"
+	        android:layout_below="@+id/buttonAggiorna"
+	        android:text="@string/server"
+	        android:textAppearance="?android:attr/textAppearanceMedium" />
+	
+	    <EditText
+	        android:id="@+id/editServer"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignLeft="@+id/textView6"
+	        android:layout_alignRight="@+id/buttonAggiorna"
+	        android:layout_below="@+id/textView6"
+	        android:hint="@string/server2" >
+	
+	    </EditText>
+	
+	    <Button
+	        android:id="@+id/buttonAggiorna"
+	        style="@style/AppTheme"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignLeft="@+id/seekBar1"
+	        android:layout_alignRight="@+id/seekBar1"
+	        android:layout_below="@+id/seekBar1"
+	        android:layout_marginTop="26dp"
+	        android:onClick="button"
+	        android:text="@string/button" />
+	
+	    <SeekBar
+	        android:id="@+id/seekBar1"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_alignLeft="@+id/imageView5"
+	        android:layout_below="@+id/imageView5" />
+	
+	    <ImageView
+	        android:id="@+id/imageView3"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_below="@+id/textHour"
+	        android:src="@drawable/ic_temp" />
+	
+	    <TextView
+	        android:id="@+id/textPrec"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignBaseline="@+id/textView4"
+	        android:layout_alignBottom="@+id/textView4"
+	        android:layout_alignRight="@+id/textFin"
+	        android:text="@string/precipitazioni"
+	        android:textAppearance="?android:attr/textAppearanceMedium" />
+	
+	    <TextView
+	        android:id="@+id/textHour"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentRight="true"
+	        android:layout_below="@+id/textView3"
+	        android:text="@string/astation"
+	        android:textAppearance="?android:attr/textAppearanceMedium" />
+	
+	    <TextView
+	        android:id="@+id/textHome"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignRight="@+id/textHour"
+	        android:layout_below="@+id/textView1"
+	        android:text="@string/station"
+	        android:textAppearance="?android:attr/textAppearanceMedium" />
+	
+	    <TextView
+	        android:id="@+id/textView3"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_below="@+id/textHome"
+	        android:layout_centerHorizontal="true"
+	        android:text="@string/hour"
+	        android:textAppearance="?android:attr/textAppearanceMedium" />
+	
+	    <TextView
+	        android:id="@+id/textView1"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignLeft="@+id/textView3"
+	        android:layout_alignTop="@+id/imageView1"
+	        android:text="@string/home"
+	        android:textAppearance="?android:attr/textAppearanceMedium" />
+	
+	    <TextView
+	        android:id="@+id/textTemp"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_above="@+id/imageView4"
+	        android:layout_alignRight="@+id/textHour"
+	        android:text="@string/temperature"
+	        android:textAppearance="?android:attr/textAppearanceMedium" />
+	
+	</RelativeLayout>
 
-</RelativeLayout>
+</ScrollView>
