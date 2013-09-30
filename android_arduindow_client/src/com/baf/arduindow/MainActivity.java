@@ -134,22 +134,22 @@ public class MainActivity extends Activity {
 	    textView.setTypeface(null, Typeface.BOLD);
 	    
 	    //ULTIMO AGGIORNAMENTO
-	    findViewById(R.id.textHour);
+	    textView = (TextView) findViewById(R.id.textHour);
 	    textView.setText(json.getValue("date_fancy"));
 	    textView.setTypeface(null, Typeface.BOLD);
 	    
 	    //TEMPERATURA
-	    findViewById(R.id.textTemp);
+	    textView = (TextView) findViewById(R.id.textTemp);
 	    textView.setText(json.getValue("temperature_celsius"));
 	    textView.setTypeface(null, Typeface.BOLD);
 	    
 	    //PRECIPITAZIONI
-	    findViewById(R.id.textPrec);
+	    textView = (TextView) findViewById(R.id.textPrec);
 	    textView.setText(json.getValue("precip_day"));
 	    textView.setTypeface(null, Typeface.BOLD);
 	    
 	    //APERTURA CHIUSURA FINESTRA
-	    findViewById(R.id.textFin);
+	    textView = (TextView) findViewById(R.id.textFin);
 	    SeekBar bar = (SeekBar) findViewById(R.id.seekBar1);
 	    if(json.getValue("window_status").compareTo("open")==0){
 	    	textView.setText("APERTO");
