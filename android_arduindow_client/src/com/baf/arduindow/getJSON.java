@@ -1,3 +1,13 @@
+/*-
+ * Arduindow - Opens and closes the windows in your house
+ * using an Arduino and open weather data.
+ *
+ * Homepage: <https://github.com/bassosimone/arduindow>.
+ *
+ * See LICENSE for license conditions.
+ *
+ * Written by Fabio Vallone.
+ */
 package com.baf.arduindow;
 
 import java.io.BufferedInputStream;
@@ -24,7 +34,7 @@ public class getJSON extends AsyncTask<URL, Void, String> {
 				}
 			}
 			s = sb.toString ();
-			
+
 			is.close ();
 		}catch(NullPointerException e){
 			s="NP";
@@ -36,7 +46,7 @@ public class getJSON extends AsyncTask<URL, Void, String> {
 			s="IO";
 		}
 		return s;
-		
+
 	}
 
 }

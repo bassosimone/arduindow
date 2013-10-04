@@ -1,3 +1,13 @@
+/*-
+ * Arduindow - Opens and closes the windows in your house
+ * using an Arduino and open weather data.
+ *
+ * Homepage: <https://github.com/bassosimone/arduindow>.
+ *
+ * See LICENSE for license conditions.
+ *
+ * Written by Fabio Vallone.
+ */
 package com.baf.arduindow;
 
 import java.io.BufferedInputStream;
@@ -25,30 +35,29 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity {
 	String serverURL = "";
-	boolean open;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView (R.layout.activity_main);
-		/**Disattiva la StrictMode per permettere il Network nel main thread. 
+		/**Disattiva la StrictMode per permettere il Network nel main thread.
 		 * N.B. non necessario in caso di Async Task (getJSON.java)**/
 		if (Build.VERSION.SDK_INT >= 9){
 			StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitNetwork().build();
 			StrictMode.setThreadPolicy(policy);
 		}
 		/*Imposta la seekbar per ricevere le variazioni*/
-		SeekBar bar = (SeekBar) findViewById(R.id.seekBar1); 
+		SeekBar bar = (SeekBar) findViewById(R.id.seekBar1);
 		bar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
 			int progressChanged = 0;
 			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser){
-				progressChanged = progress;				
+				progressChanged = progress;
             }
- 
+
             public void onStartTrackingTouch(SeekBar seekBar) {
                 // Nothing to do
             }
- 
+
             public void onStopTrackingTouch(SeekBar seekBar) {
             	if(progressChanged>50){
 					changeWindowStatus(true);
@@ -58,9 +67,9 @@ public class MainActivity extends Activity {
 				refresh();
             }
 		});
-		refresh ();		
-	}	
-	
+		refresh ();
+	}
+
 	//Se viene premuto il bottone "AGGIORNA" esegui questa parte
 	public void button(View view)
 	{
@@ -70,21 +79,21 @@ public class MainActivity extends Activity {
 			FileOutputStream fos = openFileOutput ("my_server", Context.MODE_PRIVATE);
 			fos.write(serverURL.getBytes());
 			fos.close();
-			
+
 		} catch (FileNotFoundException e) {
 		} catch (IOException e) {
-		} 
+		}
 		refresh();
 	} //
-	
-	
+
+
 	/**AGGIORNAMENTO VIEW**/
 	void refresh () {
 		try{ //prova la lettura da file
 			FileInputStream input;
 			input = openFileInput("my_server");
 			StringBuffer content = new StringBuffer("");
-			
+
 			byte[] buffer = new byte[1024];
 			while(input.read(buffer) != -1){
 				content.append(new String(buffer));
@@ -95,8 +104,8 @@ public class MainActivity extends Activity {
 				serverURL="";
 	   	}catch(IOException e){
 				serverURL="";
-		} 
-		
+		}
+
 		EditText et = (EditText) findViewById(R.id.editServer);
 		/* serverURL = et.getText().toString(); //* DEBUG senza file */
 
@@ -106,48 +115,46 @@ public class MainActivity extends Activity {
 			return ;
 		}
 		et.setHint(serverURL);
-		
+
 		//Richiedi il Json e aggiorna la View di conseguenza
 		String jc = getJson ();
-		
+
 		if (jc.length()==0) {
 			return ;
 		}
-		
+
 		JSONParse json = new JSONParse (jc);
-		
+
 		if (json.getValue("meteo_station").length()==0 ||
 			json.getValue("date_fancy").length()==0 ||
 			json.getValue("temperature_celsius").length()==0 ||
 			json.getValue("precip_day").length()==0) {
-			
+
 			Toast t = Toast.makeText(MainActivity.this, "Problema con il server", Toast.LENGTH_SHORT);
 			t.show();
 			return ;
-		} 
+		}
 
-		/* open = (json.getValue("window_status")=="open"); */
-		
 		//STAZIONE METEO
 		TextView textView = (TextView) findViewById(R.id.textHome);
 	    textView.setText(json.getValue("meteo_station"));
 	    textView.setTypeface(null, Typeface.BOLD);
-	    
+
 	    //ULTIMO AGGIORNAMENTO
 	    textView = (TextView) findViewById(R.id.textHour);
 	    textView.setText(json.getValue("date_fancy"));
 	    textView.setTypeface(null, Typeface.BOLD);
-	    
+
 	    //TEMPERATURA
 	    textView = (TextView) findViewById(R.id.textTemp);
 	    textView.setText(json.getValue("temperature_celsius"));
 	    textView.setTypeface(null, Typeface.BOLD);
-	    
+
 	    //PRECIPITAZIONI
 	    textView = (TextView) findViewById(R.id.textPrec);
 	    textView.setText(json.getValue("precip_day"));
 	    textView.setTypeface(null, Typeface.BOLD);
-	    
+
 	    //APERTURA CHIUSURA FINESTRA
 	    textView = (TextView) findViewById(R.id.textFin);
 	    SeekBar bar = (SeekBar) findViewById(R.id.seekBar1);
@@ -161,19 +168,19 @@ public class MainActivity extends Activity {
 	    	bar.setProgress(0);
 	    }
 	}
-	
-	
-	
+
+
+
 	/**ATTENZIONE: per la politica dello "Strict Mode" con Android API >= 9, in caso di connessioni ftp:// l'app crasha;
 	 * Spostare il getJSON() in un Async Task (getJSON.java) **/
 	//Ricevere il Json  OK
 	String getJson () {
-		
+
 		String s = "";
 		StringBuilder sb = new StringBuilder();
 		//Provo la connessione al server
 		try {
-			URL url = new URL (serverURL+"?v"); 
+			URL url = new URL (serverURL+"?v");
 			URLConnection uc = url.openConnection();
 			//lettura stream in input
 			InputStream is = new BufferedInputStream (uc.getInputStream());
@@ -185,7 +192,7 @@ public class MainActivity extends Activity {
 				}
 			}
 			s = sb.toString ();
-			
+
 			is.close ();
 		}catch(NullPointerException e){
 			Toast t = Toast.makeText(MainActivity.this,"Controllare la connessione con il server",Toast.LENGTH_SHORT);
@@ -202,19 +209,19 @@ public class MainActivity extends Activity {
 			Toast t = Toast.makeText(MainActivity.this,"Formato URL non valido", Toast.LENGTH_SHORT);
 			t.show();
 		}
-		return s; 
+		return s;
 	} /**OK**/
 
 	//Nessun MENU
-	@Override 
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		return true;
 	}
-	
+
 	/**PER APRIRE O CHIUDERE LA FINESTRA**/
 	void changeWindowStatus (boolean newStatus) {
 		URL url;
-		
+
 		try {
 			String t;
 			if (newStatus) {
@@ -231,10 +238,9 @@ public class MainActivity extends Activity {
 			URLConnection uc = url.openConnection ();
 			InputStream is = new BufferedInputStream (uc.getInputStream());
 			is.close();
-			
+
 		} catch (IOException e) {
 		} catch(NullPointerException e){
 		}
-		open = newStatus;
 	}
 }
