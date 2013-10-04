@@ -1,4 +1,4 @@
-package com.example.arduindow;
+package com.baf.arduindow;
 
 public class JSONParse {
 	String [] vals;

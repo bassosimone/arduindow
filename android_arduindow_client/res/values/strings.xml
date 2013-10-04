@@ -2,12 +2,20 @@
 <resources>
 
     <string name="app_name">Arduindow</string>
-    <string name="meteo_station">Meteo Station</string>
-    <string name="last_update">Last Update</string>
-    <string name="temperature">Temperature</string>
-    <string name="rainfalls">Rainfalls</string>
-    <string name="refresh">Refresh</string>
-    <string name="server">Server</string>
-    <string name="status">Status</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="home">Stazione meteo di:</string>
+    <string name="hour">Aggiornamento stazione:</string>
+    <string name="temp">Temperatura:</string>
+    <string name="prec">Precipitazioni:</string>
+    <string name="finestra">Stato finestra:</string>
+    <string name="button">AGGIORNA</string>
+    <string name="server"><b>Indirizzo del server:</b></string>
+    <string name="server2">Indirizzo server</string>
+    <string name="station"><b>ASTI TANARO</b></string>
+    <string name="astation"><b>19-SEP-2013 14:06:33 GMT</b></string>
+    <string name="temperature"><b>25.90 °C</b></string>
+    <string name="precipitazioni"><b>0.0 mm</b></string>
+    <string name="finestraStatus"><b>CHIUSO</b></string>
 
 </resources>
