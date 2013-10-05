@@ -1,4 +1,14 @@
-package com.baf.arduindow;
+/*-
+ * Arduindow - Opens and closes the windows in your house
+ * using an Arduino and open weather data.
+ *
+ * Homepage: <https://github.com/bassosimone/arduindow>.
+ *
+ * See LICENSE for license conditions.
+ *
+ * Written by Flavio Giobergia.
+ */
+package it.polito.nexa;
 
 public class JSONParse {
 	String [] vals;
