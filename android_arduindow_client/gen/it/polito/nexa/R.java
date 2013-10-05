@@ -5,7 +5,7 @@
  * should not be modified by hand.
  */
 
-package com.baf.arduindow;
+package it.polito.nexa;
 
 public final class R {
     public static final class attr {
