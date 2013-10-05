@@ -8,12 +8,12 @@
  *
  * Written by Flavio Giobergia.
  */
-package com.baf.arduindow;
+package it.polito.nexa;
 
 public class JSONParse {
 	String [] vals;
 	int loaded = 0;
-
+	
 	public String getValue (String key) {
 		if (loaded == 0) {
 			return "";
@@ -26,7 +26,7 @@ public class JSONParse {
 		}
 		return "";
 	}
-
+	
 	public JSONParse (String s) {
 		if (s.indexOf("\"") != -1) {
 			vals = s.substring (s.indexOf("\""),s.lastIndexOf("\"")+1).replace("\t","").split(",\n");

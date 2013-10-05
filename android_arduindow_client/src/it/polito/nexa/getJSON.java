@@ -8,7 +8,7 @@
  *
  * Written by Fabio Vallone.
  */
-package com.baf.arduindow;
+package it.polito.nexa;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -34,7 +34,7 @@ public class getJSON extends AsyncTask<URL, Void, String> {
 				}
 			}
 			s = sb.toString ();
-
+			
 			is.close ();
 		}catch(NullPointerException e){
 			s="NP";
@@ -46,7 +46,7 @@ public class getJSON extends AsyncTask<URL, Void, String> {
 			s="IO";
 		}
 		return s;
-
+		
 	}
 
 }
