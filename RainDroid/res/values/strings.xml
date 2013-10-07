@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">RainDroid</string>
+    <string name="app_name_licence">RainDroid - Licence</string>
+    <string name="app_name_info">RainDroid - Info</string>
+    <string name="action_settings">Settings</string>
+    <string name="home">Stazione meteo di:</string>
+    <string name="hour">Aggiornamento stazione:</string>
+    <string name="temp">Temperatura:</string>
+    <string name="prec">Precipitazioni:</string>
+    <string name="finestra">Stato finestra:</string>
+    <string name="button">AGGIORNA</string>
+    <string name="server"><b>Indirizzo del server:</b></string>
+    <string name="server2">Indirizzo server</string>
+    <string name="station"><b>ASTI TANARO</b></string>
+    <string name="astation"><b>19-SEP-2013 14:06:33 GMT</b></string>
+    <string name="temperature"><b>25.90 °C</b></string>
+    <string name="precipitazioni"><b>0.0 mm</b></string>
+    <string name="finestraStatus"><b>CHIUSO</b></string>
+    <string name="info"><b>INFO</b></string>
+    <string name="scritta"><b>ARDUINDOW PROJECT</b></string>
+    <string name="licence_info">Arduindow utilizza le informazioni meteo esportate dalla piattaforma
+[OpenDAI] e Arduino per pilotare l\' apertura delle finestre in caso
+di bel tempo e la loro chiusura in caso di pioggia.  Arduindow si
+basa su un server casalingo che prende le API meteo esportate da
+[OpenDAI] e le prepara, riorganizza e semplifica per poi passare il
+testimone ad [Arduino]. Arduindow integra, inoltre, una App per iPhone 
+e una per Android, che permettono l\' interazione manuale da parte 
+dell\' utente.  Una configurazione di pochi secondi, permette di 
+preparare Arduino a ricevere le informazioni meteo e agire di 
+conseguenza.</string>
+    <string name="link2"><b>[Arduino]:</b> http://www.arduino.cc/</string>
+    <string name="link3"><b>[OpenDai]:</b> http://www.open-dai.eu/</string>
+    <string name="link1"><b>[Arduindow]:</b> https://github.com/bassosimone/arduindow</string>
+    <string name="Licence">LICENCE</string>
+    <string name="lic1">The MIT License (MIT)</string>
+    <string name="lic2"><b>Copyright (c) 2013 The Arduindow Team</b></string>
+    <string name="lic3">Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:</string>
+    <string name="lic4">The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.</string>
+    <string name="lic5">THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</string>
+    <string name="link_utili"><b>Link utili:</b></string>
+    <string name="title_activity_info">Info</string>
+    <string name="hello_world">Hello world!</string>
+
+</resources>
