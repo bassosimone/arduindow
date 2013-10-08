@@ -219,7 +219,7 @@ public class MainActivity extends Activity {
 		return s; 
 	} /**OK**/
 
-	//Two menu voices: 1) Info, 2) Licence
+	//Two menu voices: 1) Info, 2) License
 	@Override 
 	public boolean onCreateOptionsMenu(Menu menu) {
 		menu.add(R.string.info).setOnMenuItemClickListener(new OnMenuItemClickListener() {
@@ -230,9 +230,9 @@ public class MainActivity extends Activity {
             }
     });;
     
-    menu.add(R.string.Licence).setOnMenuItemClickListener(new OnMenuItemClickListener() {
+    menu.add(R.string.License).setOnMenuItemClickListener(new OnMenuItemClickListener() {
         public boolean onMenuItemClick(MenuItem item) {
-        	Intent intent=new Intent(getApplicationContext(),Licence.class);
+        	Intent intent=new Intent(getApplicationContext(),License.class);
             startActivity(intent);
             return true;
         }

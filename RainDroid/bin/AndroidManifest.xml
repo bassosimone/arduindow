@@ -29,8 +29,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="it.polito.nexa.Arduindow.Licence"
-            android:label="@string/app_name_licence" />
+            android:name="it.polito.nexa.Arduindow.License"
+            android:label="@string/app_name_license" />
         <activity
             android:name="it.polito.nexa.Arduindow.Info"
             android:label="@string/app_name_info" >
